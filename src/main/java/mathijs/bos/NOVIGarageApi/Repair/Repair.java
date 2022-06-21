@@ -38,4 +38,9 @@ public class Repair {
             inverseJoinColumns = @JoinColumn(name = "actions_id"))
     private Collection<Action> actions = new ArrayList<>();
 
+    public Repair(Date dateOfRepair, Collection<Part> parts, Collection<Action> actions) {
+        this.dateOfRepair = dateOfRepair;
+        this.parts = parts;
+        this.actions = actions;
+    }
 }

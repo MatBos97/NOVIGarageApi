@@ -29,4 +29,9 @@ public class CustomAction {
     @Column(name = "price", nullable = false)
     private Float price;
 
+    public CustomAction(Repair repair, String description, Float price) {
+        this.repair = repair;
+        this.description = description;
+        this.price = price;
+    }
 }

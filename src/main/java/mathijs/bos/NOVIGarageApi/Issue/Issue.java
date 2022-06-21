@@ -29,7 +29,13 @@ public class Issue {
     @Column(name = "status_of_issue")
     private StatusOfIssue statusOfIssue;
 
-    enum StatusOfIssue{
+    public Issue(Inspection inspection, String description, StatusOfIssue statusOfIssue) {
+        this.inspection = inspection;
+        this.description = description;
+        this.statusOfIssue = statusOfIssue;
+    }
+
+    public enum StatusOfIssue{
         IN_QUE_FOR_REPAIR,
         DO_NOT_REPAIR,
         REPAIR_DONE

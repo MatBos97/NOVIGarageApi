@@ -24,4 +24,8 @@ public class Action {
     @Column(name = "price", nullable = false)
     private Float price;
 
+    public Action(String actionDescription, Float price) {
+        this.actionDescription = actionDescription;
+        this.price = price;
+    }
 }

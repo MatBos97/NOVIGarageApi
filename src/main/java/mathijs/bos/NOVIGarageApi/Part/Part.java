@@ -24,4 +24,8 @@ public class Part {
     @Column(name = "price", nullable = false)
     private Float price;
 
+    public Part(String partName, Float price) {
+        this.partName = partName;
+        this.price = price;
+    }
 }

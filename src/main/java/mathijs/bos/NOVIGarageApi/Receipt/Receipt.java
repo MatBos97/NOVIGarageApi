@@ -33,4 +33,10 @@ public class Receipt {
     @Column(name = "data", nullable = false)
     private byte[] data;
 
+    public Receipt(Visit visit, String fileName, String fileType, byte[] data) {
+        this.visit = visit;
+        this.fileName = fileName;
+        this.fileType = fileType;
+        this.data = data;
+    }
 }

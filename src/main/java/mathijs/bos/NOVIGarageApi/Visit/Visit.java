@@ -41,7 +41,15 @@ public class Visit {
     @Column(name = "status_of_visit", nullable = false, length = 50)
     private StatusOfVisit statusOfVisit;
 
-    enum StatusOfVisit{
+
+    public Visit(Car car, Inspection inspection, Repair repair, StatusOfVisit statusOfVisit) {
+        this.car = car;
+        this.inspection = inspection;
+        this.repair = repair;
+        this.statusOfVisit = statusOfVisit;
+    }
+
+    public enum StatusOfVisit{
         QUE_INSPECTION,
         UNDERGOING_INSPECTION,
         QUE_MAINTENANCE,

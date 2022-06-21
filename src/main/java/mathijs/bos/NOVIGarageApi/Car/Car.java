@@ -26,4 +26,8 @@ public class Car {
     @Column(name = "number_plate", nullable = false)
     private String numberPlate;
 
+    public Car(Customer customer, String numberPlate) {
+        this.customer = customer;
+        this.numberPlate = numberPlate;
+    }
 }

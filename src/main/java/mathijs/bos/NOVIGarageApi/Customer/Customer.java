@@ -28,4 +28,9 @@ public class Customer {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
+    public Customer(String firstName, String lastName, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+    }
 }
