@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @NoArgsConstructor
 @Getter
@@ -22,9 +23,9 @@ public class Part {
     private String partName;
 
     @Column(name = "price", nullable = false)
-    private Float price;
+    private BigDecimal price;
 
-    public Part(String partName, Float price) {
+    public Part(String partName, BigDecimal price) {
         this.partName = partName;
         this.price = price;
     }

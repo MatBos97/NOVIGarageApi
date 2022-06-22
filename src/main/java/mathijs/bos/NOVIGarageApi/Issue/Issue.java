@@ -38,7 +38,7 @@ public class Issue {
     public enum StatusOfIssue{
         IN_QUE_FOR_REPAIR,
         DO_NOT_REPAIR,
-        REPAIR_DONE
+        REPAIRED
     }
 
 }

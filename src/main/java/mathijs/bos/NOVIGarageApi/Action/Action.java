@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @NoArgsConstructor
 @Getter
@@ -22,9 +23,9 @@ public class Action {
     private String actionDescription;
 
     @Column(name = "price", nullable = false)
-    private Float price;
+    private BigDecimal price;
 
-    public Action(String actionDescription, Float price) {
+    public Action(String actionDescription, BigDecimal price) {
         this.actionDescription = actionDescription;
         this.price = price;
     }

@@ -6,12 +6,12 @@ import mathijs.bos.NOVIGarageApi.Customer.Customer;
 import mathijs.bos.NOVIGarageApi.Inspection.Inspection;
 import mathijs.bos.NOVIGarageApi.Issue.Issue;
 import mathijs.bos.NOVIGarageApi.Part.Part;
-import mathijs.bos.NOVIGarageApi.Receipt.Receipt;
 import mathijs.bos.NOVIGarageApi.Receipt.ReceiptGenerator;
 import mathijs.bos.NOVIGarageApi.Repair.Repair;
 import mathijs.bos.NOVIGarageApi.Visit.Visit;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,21 +21,19 @@ public class ReceiptGeneratorTest {
 
     @Test
     void generateReceiptPdfTest() {
-        ReceiptGenerator receiptGenerator = new ReceiptGenerator();
-
         Customer customer = new Customer("Mathijs", "Bos", "0631776052");
 
         Car car = new Car(customer, "123456789");
 
         Inspection inspection = new Inspection(new Date(20210101), new HashSet<>());
-        Issue issue = new Issue(inspection, "Flat tire", Issue.StatusOfIssue.REPAIR_DONE);
+        Issue issue = new Issue(inspection, "Flat tire", Issue.StatusOfIssue.REPAIRED);
         inspection.getIssues().add(issue);
 
-        Part part = new Part("Tire", 30.60f);
+        Part part = new Part("Tire", new BigDecimal("30.50"));
         List<Part> partsUsed = new ArrayList<>();
         partsUsed.add(part);
 
-        Action action = new Action("Replaced tire", 10.95f);
+        Action action = new Action("Replaced tire", new BigDecimal("16.95"));
         List<Action> actionsDone = new ArrayList<>();
         actionsDone.add(action);
 
@@ -43,7 +41,8 @@ public class ReceiptGeneratorTest {
 
         Visit visit = new Visit(car, inspection, repair, Visit.StatusOfVisit.READY_FOR_PICKUP);
 
+        ReceiptGenerator receiptGenerator = new ReceiptGenerator(visit);
 
-        receiptGenerator.generateReceipt(visit);
+        receiptGenerator.generateReceipt();
     }
 }
