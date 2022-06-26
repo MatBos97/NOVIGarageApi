@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface VisitRepository extends JpaRepository<Visit, Long> {
     List<Visit> findByCar_NumberPlateIgnoreCase(String numberPlate);
 
+    List<Visit> findByStatusOfVisit(Visit.StatusOfVisit statusOfVisit);
+
 }

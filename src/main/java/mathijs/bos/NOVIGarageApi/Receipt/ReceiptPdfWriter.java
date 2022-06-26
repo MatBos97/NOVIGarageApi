@@ -11,30 +11,43 @@ import mathijs.bos.NOVIGarageApi.Issue.Issue;
 import mathijs.bos.NOVIGarageApi.Part.Part;
 import mathijs.bos.NOVIGarageApi.Visit.Visit;
 import org.javamoney.moneta.Money;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.money.MonetaryAmount;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-public class ReceiptGenerator {
+public class ReceiptPdfWriter {
 
     private MonetaryAmount totalPrice;
     private final Document document;
     private final Visit visit;
 
-    public ReceiptGenerator(Visit visit) {
+    public ReceiptPdfWriter(Visit visit) {
         this.totalPrice = Money.of(0, "EUR");
         this.document = new Document();
         this.visit = visit;
     }
 
-    public void generateReceipt() {
+    public Path generateReceipt() {
 
         Money totalPrice = Money.of(0, "EUR");
 
+        String fileName = "src/Receipt_" + visit.getId() +
+                visit.getCar().getId() +
+                visit.getInspection().getId() +
+                visit.getRepair().getId() +
+                ".pdf";
+
+
         try {
-            PdfWriter.getInstance(document, new FileOutputStream("Receipt.pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream(fileName));
 
             document.open();
 
@@ -62,7 +75,10 @@ public class ReceiptGenerator {
             document.add(new Paragraph("Total price: " + this.totalPrice));
 
             document.close();
-        } catch (DocumentException | FileNotFoundException e) {
+
+            return Path.of(fileName);
+
+        } catch (DocumentException | IOException e) {
             throw new RuntimeException(e);
         }
     }

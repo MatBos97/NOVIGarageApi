@@ -28,6 +28,11 @@ public class VisitController {
                 .orElseThrow(() -> new EntityNotFoundException("Visit with id: " + id + " was not found."));
     }
 
+    @GetMapping("/ReadyForPickUp")
+    List<Visit> getReadyForPickUp(){
+        return visitRepository.findByStatusOfVisit(Visit.StatusOfVisit.READY_FOR_PICKUP);
+    }
+
     @PostMapping()
     Visit newVisit(@RequestBody Visit newVisit){
         List<Visit> visits = visitRepository.findByCar_NumberPlateIgnoreCase(newVisit.getCar().getNumberPlate());

@@ -6,7 +6,7 @@ import mathijs.bos.NOVIGarageApi.Customer.Customer;
 import mathijs.bos.NOVIGarageApi.Inspection.Inspection;
 import mathijs.bos.NOVIGarageApi.Issue.Issue;
 import mathijs.bos.NOVIGarageApi.Part.Part;
-import mathijs.bos.NOVIGarageApi.Receipt.ReceiptGenerator;
+import mathijs.bos.NOVIGarageApi.Receipt.ReceiptPdfWriter;
 import mathijs.bos.NOVIGarageApi.Repair.Repair;
 import mathijs.bos.NOVIGarageApi.Visit.Visit;
 import org.junit.jupiter.api.Test;
@@ -41,7 +41,7 @@ public class ReceiptGeneratorTest {
 
         Visit visit = new Visit(car, inspection, repair, Visit.StatusOfVisit.READY_FOR_PICKUP);
 
-        ReceiptGenerator receiptGenerator = new ReceiptGenerator(visit);
+        ReceiptPdfWriter receiptGenerator = new ReceiptPdfWriter(visit);
 
         receiptGenerator.generateReceipt();
     }

@@ -25,6 +25,9 @@ public class Part {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
+    @Column(name = "stock", nullable = false)
+    private Integer stock;
+
     public Part(String partName, BigDecimal price) {
         this.partName = partName;
         this.price = price;

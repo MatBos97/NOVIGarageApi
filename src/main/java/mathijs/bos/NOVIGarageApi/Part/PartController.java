@@ -36,6 +36,7 @@ public class PartController {
                 .map(part -> {
                     part.setPartName(newPart.getPartName());
                     part.setPrice(newPart.getPrice());
+                    part.setStock(newPart.getStock());
                     return partRepository.save(part);
                 })
                 .orElseGet(() -> {
