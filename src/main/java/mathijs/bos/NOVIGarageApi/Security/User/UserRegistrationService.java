@@ -26,22 +26,32 @@ public class UserRegistrationService {
     private final List<Privilege> adminPrivileges = List.of(readPrivilege, writePrivilege, deletePrivilege);
     private final List<Privilege> userPrivileges = List.of(readPrivilege, writePrivilege);
 
+    public User createNewAdmin(User user){
+        Role adminRole = createRole("ROLE_ADMIN", adminPrivileges);
+        user.setRoles(List.of(adminRole));
+        return userRepository.save(user);
+    }
+
     public User createNewMechanicUser(User user) {
-        Role mechanicRole = createRole("ROLE_MECHANIC", userPrivileges);
+        Role mechanicRole = createUserRole("ROLE_MECHANIC");
         user.setRoles(List.of(mechanicRole));
         return userRepository.save(user);
     }
 
     public User createNewReceptionistUser(User user){
-        Role receptionistRole = createRole("ROLE_RECEPTIONIST", userPrivileges);
+        Role receptionistRole = createUserRole("ROLE_RECEPTIONIST");
         user.setRoles(List.of(receptionistRole));
         return userRepository.save(user);
     }
 
     public User createNewOfficeUser(User user){
-        Role officeRole = createRole("ROLE_OFFICE", userPrivileges);
+        Role officeRole = createUserRole("ROLE_OFFICE");
         user.setRoles(List.of(officeRole));
         return userRepository.save(user);
+    }
+
+    private Role createUserRole(String name){
+        return createRole(name, userPrivileges);
     }
 
     private Role createRole(String name, List<Privilege> privileges) {

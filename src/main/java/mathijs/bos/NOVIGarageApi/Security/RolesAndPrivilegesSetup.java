@@ -36,12 +36,8 @@ public class RolesAndPrivilegesSetup implements ApplicationListener<ContextRefre
         Privilege writePrivilege = createPrivilege("WRITE_PRIVILEGE");
         Privilege deletePrivilege = createPrivilege("DELETE_PRIVILEGE");
         List<Privilege> adminPrivileges = List.of(readPrivilege, writePrivilege, deletePrivilege);
-        List<Privilege> userPrivileges = List.of(readPrivilege, writePrivilege);
 
         Role adminRole = createRole("ROLE_ADMIN", adminPrivileges);
-        Role mechanicRole = createRole("ROLE_MECHANIC", userPrivileges);
-        Role receptionistRole = createRole("ROLE_RECEPTIONIST", userPrivileges);
-        Role cashierRole = createRole("ROLE_CASHIER", userPrivileges);
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 

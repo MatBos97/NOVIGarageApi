@@ -37,10 +37,4 @@ public class User {
         this.username = username;
         this.password = password;
     }
-
-    public User(String username, String password, Collection<Role> roles) {
-        this.username = username;
-        this.password = password;
-        this.roles = roles;
-    }
 }

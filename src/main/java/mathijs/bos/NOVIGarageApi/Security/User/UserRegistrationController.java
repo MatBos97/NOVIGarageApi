@@ -20,6 +20,9 @@ public class UserRegistrationController {
         return userRepository.findAll();
     }
 
+    @PostMapping("/Admin")
+    User newAdmin(@RequestBody User user) {return userRegistrationService.createNewAdmin(user);}
+
     @PostMapping("/Mechanic")
     User newMechanic(@RequestBody User user){
         return userRegistrationService.createNewMechanicUser(user);
