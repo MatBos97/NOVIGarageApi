@@ -11,7 +11,7 @@ public class UserRegistrationController {
 
 
     @Autowired
-    private UserRegistrationService userRegistrationService;
+    private MyUserRegistrationService myUserRegistrationService;
     @Autowired
     private UserRepository userRepository;
 
@@ -21,21 +21,21 @@ public class UserRegistrationController {
     }
 
     @PostMapping("/Admin")
-    User newAdmin(@RequestBody User user) {return userRegistrationService.createNewAdmin(user);}
+    User newAdmin(@RequestBody User user) {return myUserRegistrationService.createNewAdmin(user);}
 
     @PostMapping("/Mechanic")
     User newMechanic(@RequestBody User user){
-        return userRegistrationService.createNewMechanicUser(user);
+        return myUserRegistrationService.createNewMechanicUser(user);
     }
 
     @PostMapping("/Receptionist")
     User newReceptionist(@RequestBody User user){
-        return userRegistrationService.createNewReceptionistUser(user);
+        return myUserRegistrationService.createNewReceptionistUser(user);
     }
 
     @PostMapping("/Office")
     User newOffice(@RequestBody User user){
-        return userRegistrationService.createNewOfficeUser(user);
+        return myUserRegistrationService.createNewOfficeUser(user);
     }
 
     @DeleteMapping("/{id}")

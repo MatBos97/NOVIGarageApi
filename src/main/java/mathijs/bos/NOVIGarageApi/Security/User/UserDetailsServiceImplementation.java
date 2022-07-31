@@ -1,6 +1,6 @@
 package mathijs.bos.NOVIGarageApi.Security.User;
 
-import mathijs.bos.NOVIGarageApi.Security.Privilege.Privilege;
+import mathijs.bos.NOVIGarageApi.Security.Privilege.MyPrivilege;
 import mathijs.bos.NOVIGarageApi.Security.Roles.Role;
 import mathijs.bos.NOVIGarageApi.Security.Roles.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +45,12 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
 
     private List<String> getPrivileges(Collection<Role> role_user) {
         List<String> privileges = new ArrayList<>();
-        List<Privilege> collection = new ArrayList<>();
+        List<MyPrivilege> collection = new ArrayList<>();
         for (Role role : role_user){
             privileges.add(role.getName());
-            collection.addAll(role.getPrivileges());
+            collection.addAll(role.getMyPrivileges());
         }
-        for (Privilege item : collection){
+        for (MyPrivilege item : collection){
             privileges.add(item.getName());
         }
         return privileges;
