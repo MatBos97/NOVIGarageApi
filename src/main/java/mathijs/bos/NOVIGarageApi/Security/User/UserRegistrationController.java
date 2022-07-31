@@ -35,4 +35,9 @@ public class UserRegistrationController {
         return userRegistrationService.createNewOfficeUser(user);
     }
 
+    @DeleteMapping("/{id}")
+    void deleteUser(@PathVariable Long id){
+        userRepository.deleteById(id);
+    }
+
 }
