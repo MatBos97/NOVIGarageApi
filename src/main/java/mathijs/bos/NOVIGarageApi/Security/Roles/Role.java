@@ -3,7 +3,7 @@ package mathijs.bos.NOVIGarageApi.Security.Roles;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import mathijs.bos.NOVIGarageApi.Security.Privilege.MyPrivilege;
+import mathijs.bos.NOVIGarageApi.Security.Privilege.Privilege;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class Role {
     @JoinTable(name = "roles_privileges",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "privileges_id"))
-    private Collection<MyPrivilege> myPrivileges = new ArrayList<>();
+    private Collection<Privilege> privileges = new ArrayList<>();
 
     public Role(String name) {
         this.name = name;

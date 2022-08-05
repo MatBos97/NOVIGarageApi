@@ -10,8 +10,8 @@ import java.util.List;
 public class UserRegistrationController {
 
 
-    @Autowired
-    private MyUserRegistrationService myUserRegistrationService;
+//    @Autowired
+//    private RegistrationService registrationService;
     @Autowired
     private UserRepository userRepository;
 
@@ -20,23 +20,23 @@ public class UserRegistrationController {
         return userRepository.findAll();
     }
 
-    @PostMapping("/Admin")
-    User newAdmin(@RequestBody User user) {return myUserRegistrationService.createNewAdmin(user);}
-
-    @PostMapping("/Mechanic")
-    User newMechanic(@RequestBody User user){
-        return myUserRegistrationService.createNewMechanicUser(user);
-    }
-
-    @PostMapping("/Receptionist")
-    User newReceptionist(@RequestBody User user){
-        return myUserRegistrationService.createNewReceptionistUser(user);
-    }
-
-    @PostMapping("/Office")
-    User newOffice(@RequestBody User user){
-        return myUserRegistrationService.createNewOfficeUser(user);
-    }
+//    @PostMapping("/Admin")
+//    User newAdmin(@RequestBody User user) {return registrationService.createNewAdmin(user);}
+//
+//    @PostMapping("/Mechanic")
+//    User newMechanic(@RequestBody User user){
+//        return registrationService.createNewMechanicUser(user);
+//    }
+//
+//    @PostMapping("/Receptionist")
+//    User newReceptionist(@RequestBody User user){
+//        return registrationService.createNewReceptionistUser(user);
+//    }
+//
+//    @PostMapping("/Office")
+//    User newOffice(@RequestBody User user){
+//        return registrationService.createNewOfficeUser(user);
+//    }
 
     @DeleteMapping("/{id}")
     void deleteUser(@PathVariable Long id){

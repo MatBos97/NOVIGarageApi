@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "privilege")
-public class MyPrivilege {
+public class Privilege {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "privilege_seq")
     @SequenceGenerator(name = "privilege_seq")
@@ -20,7 +20,7 @@ public class MyPrivilege {
 
     @Column(name = "name")
     private String name;
-    public MyPrivilege(String name) {
+    public Privilege(String name) {
         this.name = name;
     }
 }

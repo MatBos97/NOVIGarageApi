@@ -1,7 +1,7 @@
 package mathijs.bos.NOVIGarageApi.Security;
 
-import mathijs.bos.NOVIGarageApi.Security.Privilege.MyPrivilege;
-import mathijs.bos.NOVIGarageApi.Security.Privilege.MyPrivilegeRepository;
+import mathijs.bos.NOVIGarageApi.Security.Privilege.Privilege;
+import mathijs.bos.NOVIGarageApi.Security.Privilege.PrivilegeRepository;
 import mathijs.bos.NOVIGarageApi.Security.Roles.Role;
 import mathijs.bos.NOVIGarageApi.Security.Roles.RoleRepository;
 import mathijs.bos.NOVIGarageApi.Security.User.User;
@@ -23,7 +23,7 @@ public class RolesAndPrivilegesSetup implements ApplicationListener<ContextRefre
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
-    private MyPrivilegeRepository myPrivilegeRepository;
+    private PrivilegeRepository privilegeRepository;
 
 
 
@@ -32,12 +32,12 @@ public class RolesAndPrivilegesSetup implements ApplicationListener<ContextRefre
 
         if (alreadySetup) return;
 
-        MyPrivilege readMyPrivilege = createPrivilege("READ_PRIVILEGE");
-        MyPrivilege writeMyPrivilege = createPrivilege("WRITE_PRIVILEGE");
-        MyPrivilege deleteMyPrivilege = createPrivilege("DELETE_PRIVILEGE");
-        List<MyPrivilege> adminMyPrivileges = List.of(readMyPrivilege, writeMyPrivilege, deleteMyPrivilege);
+        Privilege readPrivilege = createPrivilege("READ_PRIVILEGE");
+        Privilege writePrivilege = createPrivilege("WRITE_PRIVILEGE");
+        Privilege deletePrivilege = createPrivilege("DELETE_PRIVILEGE");
+        List<Privilege> adminPrivileges = List.of(readPrivilege, writePrivilege, deletePrivilege);
 
-        Role adminRole = createRole("ROLE_ADMIN", adminMyPrivileges);
+        Role adminRole = createRole("ROLE_ADMIN", adminPrivileges);
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -50,20 +50,20 @@ public class RolesAndPrivilegesSetup implements ApplicationListener<ContextRefre
         alreadySetup = true;
     }
 
-    private Role createRole(String name, List<MyPrivilege> myPrivileges) {
+    private Role createRole(String name, List<Privilege> privileges) {
         return roleRepository.findByName(name)
                 .orElseGet(() -> {
                     Role role = new Role(name);
-                    role.setMyPrivileges(myPrivileges);
+                    role.setPrivileges(privileges);
                     return roleRepository.save(role);
                 });
     }
 
-    private MyPrivilege createPrivilege(String name) {
-        return myPrivilegeRepository.findByName(name)
+    private Privilege createPrivilege(String name) {
+        return privilegeRepository.findByName(name)
                 .orElseGet(() -> {
-                    MyPrivilege myPrivilege = new MyPrivilege(name);
-                    return myPrivilegeRepository.save(myPrivilege);
+                    Privilege privilege = new Privilege(name);
+                    return privilegeRepository.save(privilege);
                 });
     }
 }
