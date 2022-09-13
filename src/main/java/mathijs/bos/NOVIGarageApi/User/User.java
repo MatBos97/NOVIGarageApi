@@ -1,9 +1,9 @@
-package mathijs.bos.NOVIGarageApi.Security.User;
+package mathijs.bos.NOVIGarageApi.User;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import mathijs.bos.NOVIGarageApi.Security.Roles.Role;
+import mathijs.bos.NOVIGarageApi.Security.Role;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
@@ -21,10 +21,10 @@ public class User {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @ManyToMany
@@ -33,8 +33,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Collection<Role> roles = new ArrayList<>();
 
-    public User(String username, String password) {
+    public User(String username, String password, Collection<Role> roles) {
         this.username = username;
         this.password = password;
+        this.roles = roles;
     }
 }
