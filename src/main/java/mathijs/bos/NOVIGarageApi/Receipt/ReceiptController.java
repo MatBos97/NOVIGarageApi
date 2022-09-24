@@ -5,6 +5,7 @@ import mathijs.bos.NOVIGarageApi.Visit.VisitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,11 +25,13 @@ public class ReceiptController {
     @Autowired
     private VisitRepository visitRepository;
 
+    @Secured({"ROLE_CASHIER"})
     @GetMapping("/All")
     List<Receipt> all(){
         return receiptRepository.findAll();
     }
 
+    @Secured({"ROLE_CASHIER"})
     @GetMapping("/GenerateReceipt/{visitId}")
     ResponseEntity<byte[]> generateReceiptOfVisit(@PathVariable Long visitId){
         try {
@@ -52,6 +55,7 @@ public class ReceiptController {
         }
     }
 
+    @Secured({"ROLE_CASHIER"})
     @GetMapping("/{id}")
     ResponseEntity<byte[]> findById(@PathVariable Long id){
         Receipt receipt = receiptRepository.findById(id).orElseThrow();
@@ -60,7 +64,7 @@ public class ReceiptController {
                 .body(receipt.getData());
     }
 
-
+    @Secured({"ROLE_CASHIER"})
     @PostMapping("/{visitId}")
     Receipt uploadReceipt(@RequestParam("file")MultipartFile file, @PathVariable Long visitId){
         Visit visit = visitRepository.findById(visitId).orElseThrow(() -> new EntityNotFoundException("Visit with id: " + visitId + " was not found."));
@@ -77,7 +81,7 @@ public class ReceiptController {
         }
     }
 
-
+    @Secured({"ROLE_CASHIER"})
     @PutMapping("/{id}")
     Receipt replaceReceipt(@RequestBody Receipt newReceipt, @PathVariable Long id){
         return receiptRepository.findById(id)
@@ -93,6 +97,7 @@ public class ReceiptController {
                 });
     }
 
+    @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/{id}")
     void deleteReceipt(@PathVariable Long id){
         receiptRepository.deleteById(id);

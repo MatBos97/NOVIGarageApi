@@ -4,6 +4,7 @@ import mathijs.bos.NOVIGarageApi.Car.Car;
 import mathijs.bos.NOVIGarageApi.Car.CarNotFoundException;
 import mathijs.bos.NOVIGarageApi.Car.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -17,22 +18,26 @@ public class VisitController {
     @Autowired
     private VisitRepository visitRepository;
 
+    @Secured("ROLE_MECHANIC")
     @GetMapping()
     List<Visit> all(){
         return visitRepository.findAll();
     }
 
+    @Secured("ROLE_MECHANIC")
     @GetMapping("/{id}")
     Visit getVisit(@PathVariable Long id){
         return visitRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Visit with id: " + id + " was not found."));
     }
 
+    @Secured("ROLE_MECHANIC")
     @GetMapping("/ReadyForPickUp")
     List<Visit> getReadyForPickUp(){
         return visitRepository.findByStatusOfVisit(Visit.StatusOfVisit.READY_FOR_PICKUP);
     }
 
+    @Secured("ROLE_MECHANIC")
     @PostMapping()
     Visit newVisit(@RequestBody Visit newVisit){
         List<Visit> visits = visitRepository.findByCar_NumberPlateIgnoreCase(newVisit.getCar().getNumberPlate());
@@ -44,6 +49,7 @@ public class VisitController {
         return visitRepository.save(newVisit);
     }
 
+    @Secured("ROLE_MECHANIC")
     @PutMapping("/{id}")
     Visit replaceVisit(@RequestBody Visit newVisit, @PathVariable Long id){
         return visitRepository.findById(id)
@@ -60,6 +66,7 @@ public class VisitController {
                 });
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/{id}")
     void deleteVisit(@PathVariable Long id){
         visitRepository.deleteById(id);

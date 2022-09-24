@@ -1,6 +1,7 @@
 package mathijs.bos.NOVIGarageApi.Customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
@@ -14,17 +15,20 @@ public class CustomerController {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Secured("ROLE_RECEPTIONIST")
     @GetMapping("/all")
     List<Customer> all(){
         return customerRepository.findAll();
     }
 
+    @Secured("ROLE_RECEPTIONIST")
     @GetMapping("/{id}")
     Customer one(@PathVariable long id){
         return customerRepository.findById(id)
                 .orElseThrow();
     }
 
+    @Secured("ROLE_RECEPTIONIST")
     @PostMapping()
     Customer newCustomer(@RequestBody Customer customer){
         if (customerRepository.existsByFirstNameAndLastNameAllIgnoreCase(customer.getFirstName(), customer.getLastName())){
@@ -33,6 +37,7 @@ public class CustomerController {
         return customerRepository.save(customer);
     }
 
+    @Secured("ROLE_RECEPTIONIST")
     @PutMapping("/{id}")
     Customer replaceCustomer(@RequestBody Customer newCustomer, @PathVariable long id){
         return customerRepository.findById(id)
@@ -48,6 +53,7 @@ public class CustomerController {
                 });
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/id")
     void deleteCustomer(@PathVariable long id){
         customerRepository.deleteById(id);
