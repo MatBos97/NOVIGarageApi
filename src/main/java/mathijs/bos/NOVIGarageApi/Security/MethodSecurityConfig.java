@@ -16,7 +16,7 @@ public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
     public RoleHierarchyImpl roleHierarchy(){
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
         roleHierarchy.setHierarchy(
-                "ROLE_ADMIN > ROLE_RECEPTIONIST and ROLE_ADMIN > ROLE_MECHANIC and ROLE_ADMIN > ROLE_CASHIER"
+                "ROLE_ADMIN > ROLE_RECEPTIONIST and ROLE_MECHANIC and ROLE_CASHIER"
         );
         return roleHierarchy;
     }

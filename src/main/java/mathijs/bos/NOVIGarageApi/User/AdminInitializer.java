@@ -18,8 +18,8 @@ public class AdminInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         userRepository.save(
                 new UserEntity(
-                        "Mathijs",
-                        "Gaudi",
+                        "Admin",
+                        "Admin",
                         List.of(
                                 new Role("ROLE_ADMIN")
                         )
