@@ -5,6 +5,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
@@ -15,17 +16,17 @@ public class CustomerController {
     @Autowired
     private CustomerRepository customerRepository;
 
-    @Secured("ROLE_RECEPTIONIST")
+    @Secured({"ROLE_RECEPTIONIST", "ROLE_MECHANIC"})
     @GetMapping("/all")
     List<Customer> all(){
         return customerRepository.findAll();
     }
 
-    @Secured("ROLE_RECEPTIONIST")
+    @Secured({"ROLE_RECEPTIONIST", "ROLE_MECHANIC"})
     @GetMapping("/{id}")
     Customer one(@PathVariable long id){
         return customerRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new EntityNotFoundException("No action with id" + id + " was found."));
     }
 
     @Secured("ROLE_RECEPTIONIST")

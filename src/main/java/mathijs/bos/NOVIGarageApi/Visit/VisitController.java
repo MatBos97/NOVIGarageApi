@@ -18,26 +18,26 @@ public class VisitController {
     @Autowired
     private VisitRepository visitRepository;
 
-    @Secured("ROLE_MECHANIC")
+    @Secured({"ROLE_MECHANIC", "ROLE_RECEPTIONIST"})
     @GetMapping()
     List<Visit> all(){
         return visitRepository.findAll();
     }
 
-    @Secured("ROLE_MECHANIC")
+    @Secured({"ROLE_MECHANIC", "ROLE_RECEPTIONIST"})
     @GetMapping("/{id}")
     Visit getVisit(@PathVariable Long id){
         return visitRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Visit with id: " + id + " was not found."));
     }
 
-    @Secured("ROLE_MECHANIC")
+    @Secured({"ROLE_MECHANIC", "ROLE_RECEPTIONIST"})
     @GetMapping("/ReadyForPickUp")
     List<Visit> getReadyForPickUp(){
         return visitRepository.findByStatusOfVisit(Visit.StatusOfVisit.READY_FOR_PICKUP);
     }
 
-    @Secured("ROLE_MECHANIC")
+    @Secured({"ROLE_MECHANIC", "ROLE_RECEPTIONIST"})
     @PostMapping()
     Visit newVisit(@RequestBody Visit newVisit){
         List<Visit> visits = visitRepository.findByCar_NumberPlateIgnoreCase(newVisit.getCar().getNumberPlate());
@@ -49,7 +49,7 @@ public class VisitController {
         return visitRepository.save(newVisit);
     }
 
-    @Secured("ROLE_MECHANIC")
+    @Secured({"ROLE_MECHANIC", "ROLE_RECEPTIONIST"})
     @PutMapping("/{id}")
     Visit replaceVisit(@RequestBody Visit newVisit, @PathVariable Long id){
         return visitRepository.findById(id)

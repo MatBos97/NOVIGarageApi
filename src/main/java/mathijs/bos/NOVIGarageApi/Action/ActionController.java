@@ -1,5 +1,6 @@
 package mathijs.bos.NOVIGarageApi.Action;
 
+import mathijs.bos.NOVIGarageApi.Exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class ActionController {
     @GetMapping("/{id}")
     Action findAction(@PathVariable Long id){
         return actionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Action with id: " + id + " was not found."));
+                .orElseThrow(() -> new NotFoundException("Action", "id", id.toString()));
     }
 
     @Secured({"ROLE_ADMIN"})

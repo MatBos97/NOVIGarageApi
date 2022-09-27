@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityExistsException;
 import java.util.List;
 
+@Secured("ROLE_ADMIN")
 @RestController
 @RequestMapping("/User")
 public class UserController {
@@ -32,7 +33,6 @@ public class UserController {
                 .orElseThrow();
     }
 
-    @Secured("ROLE_ADMIN")
     @PostMapping()
     UserEntity newUser(@RequestBody UserEntity newUser){
         return userService.newUser(newUser);
