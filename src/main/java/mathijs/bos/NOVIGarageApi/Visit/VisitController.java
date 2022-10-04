@@ -1,8 +1,5 @@
 package mathijs.bos.NOVIGarageApi.Visit;
 
-import mathijs.bos.NOVIGarageApi.Car.Car;
-import mathijs.bos.NOVIGarageApi.Car.CarNotFoundException;
-import mathijs.bos.NOVIGarageApi.Car.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;

@@ -81,34 +81,5 @@ public class AdminInitializer implements CommandLineRunner {
                 )
         );
 
-        Customer customer = new Customer("Mathijs", "Bos", "123456789");
-
-        Car car = new Car(customer, "123-456-789");
-
-        HashSet<Issue> issues = new HashSet<>();
-
-        Inspection inspection = new Inspection(new Date(20220101), issues);
-        inspection.getIssues().add(new Issue(inspection, "broke sensor", Issue.StatusOfIssue.IN_QUE_FOR_REPAIR));
-
-        Collection<Part> parts = new ArrayList<>();
-
-        Collection<Action> actions = new ArrayList<>();
-
-        Repair repair = new Repair(new Date(20220101), parts, actions);
-        repair.getParts().add(new Part("sensor", new BigDecimal(20)));
-        repair.getActions().add(new Action("Repair sensor", new BigDecimal(5)));
-
-        Visit visit = new Visit(car, inspection, repair, Visit.StatusOfVisit.QUE_INSPECTION);
-
-        CustomAction customAction = new CustomAction(repair, "Custom action" , 15.95f);
-
-        CarFile carFile = new CarFile(car, "car file", "pdf", new byte[1]);
-
-        Receipt receipt = new Receipt(visit, "receipt", "pdf", new byte[1]);
-
-
-        customerRepository.save(customer);
-        carRepository.save(car);
-        inspectionRepository.save(inspection);
     }
 }

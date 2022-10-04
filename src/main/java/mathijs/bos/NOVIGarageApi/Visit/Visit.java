@@ -42,10 +42,11 @@ public class Visit {
     private StatusOfVisit statusOfVisit;
 
 
-    public Visit(Car car, Inspection inspection, Repair repair, StatusOfVisit statusOfVisit) {
+    public Visit(Car car, Inspection inspection, Repair repair, Receipt receipt, StatusOfVisit statusOfVisit) {
         this.car = car;
         this.inspection = inspection;
         this.repair = repair;
+        this.receipt = receipt;
         this.statusOfVisit = statusOfVisit;
     }
 

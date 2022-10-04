@@ -1,5 +1,6 @@
 package mathijs.bos.NOVIGarageApi.Inspection;
 
+import mathijs.bos.NOVIGarageApi.Exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class InspectionController {
     @GetMapping("/{id}")
     Inspection getInspection(@PathVariable Long id){
         return inspectionRepository.findById(id)
-                .orElseThrow(() -> new InspectionNotFoundException(id));
+                .orElseThrow(() -> new NotFoundException(Inspection.class));
     }
 
     @Secured("ROLE_MECHANIC")

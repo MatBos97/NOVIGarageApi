@@ -1,8 +1,8 @@
 package mathijs.bos.NOVIGarageApi.CarFile;
 
 import mathijs.bos.NOVIGarageApi.Car.Car;
-import mathijs.bos.NOVIGarageApi.Car.CarNotFoundException;
 import mathijs.bos.NOVIGarageApi.Car.CarRepository;
+import mathijs.bos.NOVIGarageApi.Exceptions.NotFoundException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -37,7 +37,7 @@ public class CarFileController {
     @PostMapping("/{carId}")
     CarFile saveFile(@RequestParam("file") @NotNull MultipartFile file, @PathVariable Long carId){
         Car car = carRepository.findById(carId)
-                .orElseThrow(() -> new CarNotFoundException(carId));
+                .orElseThrow(() -> new NotFoundException(CarFile.class));
         try {
             String filename = file.getOriginalFilename();
             String fileType = file.getContentType();

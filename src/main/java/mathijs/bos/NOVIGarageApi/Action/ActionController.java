@@ -26,7 +26,7 @@ public class ActionController {
     @GetMapping("/{id}")
     Action findAction(@PathVariable Long id){
         return actionRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Action", "id", id.toString()));
+                .orElseThrow(() -> new NotFoundException(Action.class));
     }
 
     @Secured({"ROLE_ADMIN"})

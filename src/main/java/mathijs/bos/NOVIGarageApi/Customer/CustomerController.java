@@ -1,5 +1,6 @@
 package mathijs.bos.NOVIGarageApi.Customer;
 
+import mathijs.bos.NOVIGarageApi.Exceptions.AlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class CustomerController {
     @PostMapping()
     Customer newCustomer(@RequestBody Customer customer){
         if (customerRepository.existsByFirstNameAndLastNameAllIgnoreCase(customer.getFirstName(), customer.getLastName())){
-            throw new CustomerAlreadyExistsException(customer.getFirstName(), customer.getLastName());
+            throw new AlreadyExistsException(Customer.class, "first and last name");
         }
         return customerRepository.save(customer);
     }
